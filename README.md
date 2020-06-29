@@ -1,2 +1,2 @@
-# cipherinfo
-cheks ciphers for unik characters and lenght
+# Cipherinfo
+Cheks ciphers for unik characters and lenght
