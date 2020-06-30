@@ -9,15 +9,16 @@ int identify(char *argv)
     FILE *fp;
 
     if((fp = fopen(argv, "r"))==0){
-        perror("File not found or premission denied");
+        if((strcmp(argv, "-v"))==0)
+            return 1;
+        fprintf(stderr, "Premission denied or invalid file\n");
         return 1;
     }
     else{
         cipherid(&fp);
         fclose(fp);
+        return 0;
     }
-
-    return 0;
 }
 
 int cipherid(FILE **fp)
@@ -37,20 +38,21 @@ int cipherid(FILE **fp)
        for(i=0;i<=bytes;i++)
            if(array[i]==c){
                count=1;
-               //break;
+               break;
            }
 
-       if(count == 0){
+       if((count == 0)&&(c>32)){
            array[x] = c;
            x++;
        }
 
        count = 0;
-       printf("%c", c);
+       //printf("%c", c);
    }
 
     printf("%s\n", array);
-    printf("%d\n", bytes);
+    //print how many unik chars
+    //printf("%d\n", bytes);
 
     free(array);
     return 0;

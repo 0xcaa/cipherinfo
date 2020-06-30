@@ -1,15 +1,15 @@
 CC=gcc
 CFLAGS=-g -Wall -pedantic 
-OBJS=main.o  identify.o
+OBJS=main.o  identify.o usage.o
 PREFIX=/usr/local
 
 sipher: $(OBJS)
-	$(CC) -o main $(OBJS)
+	$(CC) -o cipherinfo $(OBJS)
 
-main.o: identify.h
+main.o: identify.h usage.h
 
 clean:
-	rm main $(OBJS)
+	rm cipherinfo $(OBJS)
 
 install:
 		cp main $(DESTDIR)$(PREFIX)/bin/cipherid
