@@ -12,7 +12,7 @@ clean:
 	rm cipherinfo $(OBJS)
 
 install:
-		cp main $(DESTDIR)$(PREFIX)/bin/cipherid
+		cp cipherinfo $(DESTDIR)$(PREFIX)/bin/cipherinfo
 
 uninstall:	
-		rm main $(DESTDIR)$(PREFIX)/bin/cipherid
+		rm cipherinfo $(DESTDIR)$(PREFIX)/bin/cipherinfo

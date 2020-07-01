@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 {
     int opt;
 
-    if((argc<1)||(argc>3))
+    if((argc<2)||(argc>3))
     {
         usage();
         return 1;
@@ -26,7 +26,7 @@ int main(int argc, char **argv)
                     usage();
                     break;    
             default:
-                perror("Invalid Option");
+                perror("Error");
                 return 1;
             }
 
