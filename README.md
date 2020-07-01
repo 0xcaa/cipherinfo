@@ -1,2 +1,2 @@
 # Cipherinfo
-Cheks ciphers for unik characters and lenght
+Cheks ciphers for unique characters and counts how many there are

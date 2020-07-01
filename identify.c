@@ -23,7 +23,7 @@ int identify(char *argv)
 
 int cipherid(FILE **fp)
 {
-    int bytes=0, i=0, count=0, x=0;
+    int bytes=0, i, count=0, x=0, letter=0, q;
     char *array;
     char c;
 
@@ -51,8 +51,10 @@ int cipherid(FILE **fp)
    }
 
     printf("%s\n", array);
-    //print how many unik chars
-    //printf("%d\n", bytes);
+
+    for(q=0;array[q]!=0;q++)
+        letter++;
+   printf("%d\n", letter);
 
     free(array);
     return 0;
