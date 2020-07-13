@@ -21,12 +21,13 @@ int main(int argc, char **argv)
                 case 'v':
                     identify(argv[2]);
                     break;
-
                 case 'h':
                     usage();
                     break;    
+
             default:
-                perror("Error");
+                //perror("Error");
+                usage();
                 return 1;
             }
 

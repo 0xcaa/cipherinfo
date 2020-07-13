@@ -1,18 +1,19 @@
-CC=gcc
-CFLAGS=-g -Wall -pedantic 
-OBJS=main.o  identify.o usage.o
+CFILES = $(wildcard *.c)
+OBJFILES = $(CFILES:.c=.o)
 PREFIX=/usr/local
 
-sipher: $(OBJS)
-	$(CC) -o cipherinfo $(OBJS)
+CC=gcc
+LDFLAGS = -lb64
+CFLAGS= -c $(LDFLAGS) -g -Wall -pedantic
 
-main.o: identify.h usage.h
+cipherinfo: $(OBJFILES)
+	$(CC) -o $@ $^ $(LDFLAGS)
 
+.PHONY:clean
 clean:
-	rm cipherinfo $(OBJS)
-
+	rm -f $(OBJFILES) cipherinfo
 install:
-		cp cipherinfo $(DESTDIR)$(PREFIX)/bin/cipherinfo
+	cp cipherinfo $(DESTDIR)$(PREFIX)/bin/cipherinfo
+uninstall:
+	rm cipherinfo $(DESTDIR)$(PREFIX)/bin/cipherinfo
 
-uninstall:	
-		rm cipherinfo $(DESTDIR)$(PREFIX)/bin/cipherinfo

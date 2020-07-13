@@ -1,0 +1,20 @@
+CC=gcc
+CFLAGS=-g -Wall -pedantic 
+OBJS=main.o identify.o usage.o base_64.o
+PREFIX=/usr/local
+#LFLAGS= -L/usr/lib/ -lb64
+
+
+main: $(OBJS)
+	$(CC) -o cipherinfo $(OBJS)
+
+main.o: identify.h usage.h base_64.h
+
+clean:
+	rm cipherinfo $(OBJS)
+
+install:
+		cp cipherinfo $(DESTDIR)$(PREFIX)/bin/cipherinfo
+
+uninstall:	
+		rm cipherinfo $(DESTDIR)$(PREFIX)/bin/cipherinfo

@@ -2,11 +2,16 @@
 #include <string.h>
 #include <stdlib.h>
 
-int cipherid(FILE **fp);
+#include "base_64.h"
+
+int array_lenght(char *array);
+int cipherid(FILE **fp, int bytes);
 
 int identify(char *argv)
 {
     FILE *fp;
+    char *file_array, c;
+    int bytes, j=0;
 
     if((fp = fopen(argv, "r"))==0){
         if((strcmp(argv, "-v"))==0)
@@ -15,26 +20,39 @@ int identify(char *argv)
         return 1;
     }
     else{
-        cipherid(&fp);
+        fseek(fp, 0, SEEK_END);
+        bytes = ftell(fp);
+        rewind(fp);
+
+        cipherid(&fp, bytes);
+
+        file_array = calloc(bytes+1, sizeof(char));
+
+        while((c = getc(fp))!=EOF){
+            file_array[j] = c;
+            //printf("%c", c);
+            j++;
+        }
+        base64_decode(file_array, bytes);
+        base64_encode(file_array, bytes);
+        
+        
         fclose(fp);
+        free(file_array);
         return 0;
     }
 }
 
-int cipherid(FILE **fp)
+int cipherid(FILE **fp, int bytes)
 {
-    int bytes=0, i, count=0, x=0, letter=0, q;
+    int i, count=0, x=0;
     char *array;
     char c;
 
-    fseek(*fp, 0, SEEK_END);
-    bytes = ftell(*fp);
-    rewind(*fp);
-
     array = calloc(bytes+1, sizeof(char));
 
-   while((c = getc(*fp)) !=EOF)
-   {
+    while((c = getc(*fp)) !=EOF)
+    {
        for(i=0;i<=bytes;i++)
            if(array[i]==c){
                count=1;
@@ -48,16 +66,23 @@ int cipherid(FILE **fp)
 
        count = 0;
        //printf("%c", c);
-   }
+    }
 
-    printf("%s\n", array);
-
-    for(q=0;array[q]!=0;q++)
-        letter++;
-   printf("%d\n", letter);
+    printf("Unique characters:\n%s\n", array);
+    printf("%d\n\n", array_lenght(array));
 
     free(array);
+    rewind(*fp);
     return 0;
 
+}
+int array_lenght(char *array)
+{
+    int q, lenght=0;
+
+    for(q=0;array[q]!=0;q++)
+        lenght++;
+
+    return lenght;
 }
 
